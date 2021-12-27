@@ -53,7 +53,8 @@ function operatorsHandler(event) {
     if(!/[^\d\.]/.test(display.textContent) && display.textContent) {
         numbersHandler(event);
     } else if (display.textContent){
-        display.textContent = operateScreen(display.textContent) + event.type=='click'?event.target.textContent:event.key;
+        const oper = event.type=='click'?event.target.textContent:event.key;
+        display.textContent = operateScreen(display.textContent) + oper;
     }
 }
 
@@ -92,16 +93,40 @@ btns.forEach(btn=>{
 document.addEventListener('keydown', (e) => {
         if(/\d/.test(e.key)) {
             numbersHandler(e);
+            document.querySelector('button[data-text="'+e.key+'"]').className="btn btn-clicked"
         } else if(e.key==".") {
             pointHandler(e);
+            document.querySelector('button[data-text="'+e.key+'"]').className="btn btn-clicked"
         } else if(e.key=="c") {
             eraseHandler();
+            document.querySelector('button[data-text="'+e.key+'"]').className="btn btn-clicked"
         } else if(e.key=="Backspace") {
             backHandler();
+            document.querySelector('button[data-text="ca"]').className="btn btn-clicked"
         } else if(e.key=="Enter") {
             equalsHandler();
+            document.querySelector('button[data-text="="]').className="btn btn-clicked"
         } else if(e.key=='+'||e.key=='-'||e.key=='/'||e.key=='*') {
             operatorsHandler(e);
+            document.querySelector('button[data-text="'+e.key+'"]').className="btn btn-clicked"
         }
     }
+)
+
+document.addEventListener('keyup', (e) => {
+
+    if(/\d/.test(e.key)) {
+        document.querySelector('button[data-text="'+e.key+'"]').className="btn"
+    } else if(e.key==".") {
+        document.querySelector('button[data-text="'+e.key+'"]').className="btn"
+    } else if(e.key=="c") {
+        document.querySelector('button[data-text="'+e.key+'"]').className="btn"
+    } else if(e.key=="Backspace") {
+        document.querySelector('button[data-text="ca"]').className="btn"
+    } else if(e.key=="Enter") {
+        document.querySelector('button[data-text="="]').className="btn"
+    } else if(e.key=='+'||e.key=='-'||e.key=='/'||e.key=='*') {
+        document.querySelector('button[data-text="'+e.key+'"]').className="btn"
+    }
+}
 )
