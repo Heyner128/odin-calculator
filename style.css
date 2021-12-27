@@ -6,7 +6,6 @@ body {
 #calculator {
   font-family: "Russo One";
   display: flex;
-  width: 265px;
   flex-direction: column;
   align-items: center;
   background-color: rgba(46, 45, 92, 0.808);
@@ -29,7 +28,8 @@ body {
   margin: 8% 0 8% 0;
   display: grid;
   grid-template-columns: repeat(4, auto);
-  --gap: 1%;
+  --gap: 5px;
+  padding: 0 20px 0 20px;
   row-gap: var(--gap);
   column-gap: calc(2 * var(--gap));
 }
