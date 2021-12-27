@@ -1,0 +1,26 @@
+#calculator {
+  display: flex;
+  width: 20%;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+}
+
+#display {
+  width: 80%;
+  height: 2em;
+  margin-top: 1em;
+  border: 1px solid black;
+}
+
+#buttons-container {
+  border: 1px solid black;
+  margin: 1em 0 1em 0;
+  display: grid;
+  width: 80%;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.btn {
+  border: 1px solid black;
+}
