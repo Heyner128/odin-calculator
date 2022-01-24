@@ -18,17 +18,17 @@ function operate(operator, a, b) {
     }
 
     if(operator=="/" && b==0) return "Error - Division by 0";
-    return Number(result.toFixed(2));
+    return String(Number(result.toFixed(2))).replace('-','~');
 
 }
 
 
 function operateScreen(screenText) {
-    const symbol = screenText.match(/[^\d\.]/);
+    const symbol = screenText.match(/[^\d\.~]/);
     const numbers = screenText.split(symbol);
     const isValidOperation = symbol && numbers.length==2;
     if(isValidOperation) {
-        return operate(symbol[0],Number(numbers[0]),Number(numbers[1]));
+        return operate(symbol[0],Number(numbers[0].replace('~','-')),Number(numbers[1].replace('~','-')));
     }
     
 }
@@ -38,8 +38,6 @@ function backHandler() {
 }
 
 function numbersHandler(event) {
-
-
     
     display.textContent += event.type=='click'?event.target.textContent:event.key;
 }
@@ -50,7 +48,7 @@ function eraseHandler() {
 
 
 function operatorsHandler(event) {
-    if(!/[^\d\.]/.test(display.textContent) && display.textContent) {
+    if(!/[^\d\.~]/.test(display.textContent) && display.textContent) {
         numbersHandler(event);
     } else if (display.textContent){
         const oper = event.type=='click'?event.target.textContent:event.key;
@@ -64,9 +62,15 @@ function equalsHandler() {
 }
 
 function pointHandler(event) {
-    const symbol = display.textContent.match(/[^\d\.]/);
+    const symbol = display.textContent.match(/[^\d\.~]/);
     const numbers = display.textContent.split(symbol);
     if(!numbers[numbers.length-1].includes('.') && numbers[numbers.length-1]) numbersHandler(event);
+}
+
+function minusHandler(event) {
+    const symbol = display.textContent.match(/[^\d\.~]/);
+    const numbers = display.textContent.split(symbol);
+    if(!numbers[numbers.length-1].includes('~')) numbersHandler(event);
 }
 
 
@@ -85,6 +89,8 @@ btns.forEach(btn=>{
         btn.addEventListener('click',backHandler);
     } else if(btn.textContent=="=") {
         btn.addEventListener('click',equalsHandler);
+    }else if(btn.textContent=='~') {
+        btn.addEventListener('click',minusHandler);
     } else {
         btn.addEventListener('click',operatorsHandler);
     }
